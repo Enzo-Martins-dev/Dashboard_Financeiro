@@ -5,7 +5,6 @@ import pandas as pd
 import plotly.express as px
 import psycopg2
 
-# Conexão com o banco de dados
 connection = psycopg2.connect(
     database="devops-banco",
     user="joaomiguel",
@@ -31,7 +30,6 @@ df_transactions = fetch_table_data("SELECT * FROM transactions limit 10000;", co
 
 connection.close()
 
-# Limpeza e transformação dos dados
 columns_to_clean = ["per_capita_income", "yearly_income", "total_debt"]
 for column in columns_to_clean:
     df_finances[column] = df_finances[column].str.replace("$", "").astype(float)
@@ -39,15 +37,12 @@ for column in columns_to_clean:
 df_finance = pd.DataFrame(df_finances)
 df_finance['Income_Group'] = (df_finance['yearly_income'] // 10000) * 10000
 
-# Agrupamento de comerciantes por estado
 grouped_merchants = df_merchants.groupby('merchant_state', as_index=False).size()
 grouped_merchants.columns = ['merchant_state', 'merchant_count']
 
-# Agrupamento de `use_chip` para o gráfico de pizza
 use_chip_counts = df_transactions['use_chip'].value_counts().reset_index()
 use_chip_counts.columns = ['use_chip', 'count']
 
-# Iniciando o aplicativo Dash
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
@@ -94,7 +89,6 @@ app.layout = html.Div([
     )
 ])
 
-# Callback para o gráfico de distribuição de dívidas
 @app.callback(
     Output('histogram-plot', 'figure'),
     Input('metric-dropdown', 'value')
