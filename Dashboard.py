@@ -6,10 +6,10 @@ import plotly.express as px
 import psycopg2
 
 connection = psycopg2.connect(
-    database="devops-banco",
-    user="joaomiguel",
-    password="zetagundam",
-    host="devops-banco.crkuie6e0fki.us-east-1.rds.amazonaws.com",
+    database="xxx",
+    user="x",
+    password="x",
+    host="x",
     port=5432
 )
 
