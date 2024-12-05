@@ -6,7 +6,7 @@ import plotly.express as px
 import psycopg2
 
 connection = psycopg2.connect(
-    database="xxx",
+    database="x",
     user="x",
     password="x",
     host="x",
